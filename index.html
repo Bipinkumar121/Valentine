@@ -13,7 +13,6 @@
   font-family:'Poppins',sans-serif;
 }
 
-/* ===== BODY ===== */
 body{
   min-height:100vh;
   background:#0b0b12;
@@ -23,37 +22,37 @@ body{
   overflow:hidden;
 }
 
-/* ===== LIFETIME BG ANIMATION ===== */
+/* ===== BACKGROUND HEARTS ===== */
 .bg-anim{
   position:fixed;
   inset:0;
   pointer-events:none;
-  overflow:hidden;
   z-index:-1;
 }
-
 .heart{
   position:absolute;
   bottom:-40px;
-  font-size:20px;
-  opacity:0.6;
-  animation: rise linear forwards;
+  font-size:22px;
+  opacity:.6;
+  animation:rise linear forwards;
 }
 @keyframes rise{
-  from{transform:translateY(0) scale(.8);opacity:.6}
-  to{transform:translateY(-120vh) scale(1.3);opacity:0}
+  from{transform:translateY(0) scale(.9)}
+  to{transform:translateY(-120vh) scale(1.4);opacity:0}
 }
 
-/* ===== CENTER CONTENT ===== */
+/* ===== CONTAINER ===== */
 .container{
   background:#ffe9f1;
-  width:90%;
-  max-width:420px;
-  padding:22px;
-  border-radius:18px;
+  width:94%;
+  max-width:580px;
+  padding:32px;
+  border-radius:24px;
   text-align:center;
-  box-shadow:0 25px 50px rgba(0,0,0,.55);
+  box-shadow:0 30px 65px rgba(0,0,0,.6);
   animation:pop .4s ease;
+  max-height:92vh;
+  overflow:hidden;
 }
 @keyframes pop{
   from{opacity:0;transform:scale(.9)}
@@ -61,99 +60,146 @@ body{
 }
 
 .hidden{display:none}
-h2{font-size:22px;margin-bottom:10px}
-p{font-size:16px;margin-bottom:12px}
+h2{font-size:24px;margin-bottom:12px}
+p{font-size:17px;margin-bottom:14px}
 
 /* ===== BUTTONS ===== */
 button{
-  padding:10px 18px;
-  border-radius:25px;
+  padding:12px 26px;
+  border-radius:30px;
   border:none;
   cursor:pointer;
-  font-size:15px;
+  font-size:16px;
   transition:.25s;
 }
-button:hover{transform:scale(1.06)}
-button:active{transform:scale(.94)}
+button:hover{transform:scale(1.07)}
 .btn-red{background:#ff2e63;color:#fff}
 .btn-outline{background:#fff;border:1px solid #ccc}
-.buttons{display:flex;justify-content:center;gap:12px;margin-top:12px}
+.buttons{
+  display:flex;
+  justify-content:center;
+  gap:16px;
+  margin-top:16px;
+}
 
-/* ===== GIFT BUTTONS (WITH TEDDY IMAGES) ===== */
+/* ===== GIFTS ===== */
 .gifts{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin:14px 0;
+  gap:18px;
+  margin:20px 0;
 }
-
 .gift{
   background:#ffd6e8;
-  border-radius:14px;
-  padding:10px;
+  border-radius:18px;
+  padding:16px;
   cursor:pointer;
-  transition:.25s;
+  transition:.3s;
 }
-
-.gift:hover{transform:translateY(-4px) scale(1.05)}
-
+.gift:hover{
+  transform:translateY(-6px) scale(1.06);
+  box-shadow:0 14px 35px rgba(255,46,99,.45);
+}
 .gift img{
   width:100%;
-  height:90px;
+  height:150px;
   object-fit:contain;
 }
-
 .gift span{
   display:block;
-  margin-top:6px;
+  margin-top:10px;
   font-weight:600;
 }
 
 /* ===== QUIZ ===== */
 .option{
   background:#f1eef6;
-  padding:10px;
-  margin:8px 0;
-  border-radius:10px;
+  padding:14px;
+  margin:10px 0;
+  border-radius:14px;
   cursor:pointer;
 }
 .option.selected{
   background:#ff2e63;
   color:#fff;
 }
-button:disabled{opacity:.5;cursor:not-allowed}
+button:disabled{opacity:.5}
 
 /* ===== LETTER ===== */
 .letter-box{
   background:#ffd6e8;
-  padding:14px;
-  border-radius:14px;
+  padding:20px;
+  border-radius:18px;
 }
 .letter{
   background:#f5e6c8;
-  padding:16px 18px;
-  border-radius:10px;
+  padding:22px;
+  border-radius:14px;
   font-family:cursive;
-  font-size:16px;
-  line-height:1.6;
+  font-size:18px;
+  line-height:1.7;
   color:#4b2e14;
-  width:fit-content;
-  margin:auto;
 }
 
-/* ===== GALLERY ===== */
+/* ===== GALLERY (ANIMATED) ===== */
+.gallery-wrapper{
+  max-height:360px;
+  overflow-y:auto;
+  margin-bottom:16px;
+}
 .gallery{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:8px;
+  gap:16px;
 }
 .gallery div{
-  height:70px;
-  background:#ffc8dd;
-  border-radius:10px;
+  position:relative;
+  background:#ed89c8;
+  border-radius:16px;
+  padding:10px;
+  overflow:hidden;
+  transition:.4s ease;
+}
+.gallery img{
+  width:100%;
+  height:170px;
+  object-fit:contain;
+  border-radius:12px;
+  transition:transform .4s ease, filter .4s ease;
 }
 
-/* ===== FINAL ===== */
+/* hover zoom + glow */
+.gallery div:hover img{
+  transform:scale(1.15);
+  filter:drop-shadow(0 10px 22px rgba(255,46,99,.65));
+}
+
+/* shiny sweep */
+.gallery div::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-120%;
+  width:60%;
+  height:100%;
+  background:linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,.85),
+    transparent
+  );
+}
+.gallery div:hover::after{
+  left:140%;
+  transition:.7s;
+}
+
+/* float effect */
+.gallery div:hover{
+  transform:translateY(-6px) scale(1.05);
+}
+
+/* ===== FINAL VIDEO ===== */
 .overlay{
   position:fixed;
   inset:0;
@@ -162,7 +208,45 @@ button:disabled{opacity:.5;cursor:not-allowed}
   justify-content:center;
   align-items:center;
 }
-video{width:100%;border-radius:12px}
+
+.video-scroll{
+  max-height:80vh;
+  overflow-y:auto;
+}
+
+.video-title,
+.video-sub{
+  font-family:cursive;
+}
+
+.video-title{font-size:26px;margin-bottom:12px}
+.video-sub{font-size:18px;margin-top:14px}
+
+.video-box{
+  position:relative;
+  margin:18px 0;
+}
+video{
+  width:100%;
+  max-height:400px;
+  object-fit:contain;
+  border-radius:18px;
+  box-shadow:0 18px 40px rgba(255,46,99,.5);
+}
+.video-box span{
+  position:absolute;
+  font-size:20px;
+  opacity:.6;
+  animation:floatVid 6s linear infinite;
+}
+@keyframes floatVid{
+  from{transform:translateY(30px)}
+  to{transform:translateY(-130px);opacity:0}
+}
+
+/* scrollbar */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-thumb{background:#ff2e63;border-radius:10px}
 </style>
 </head>
 
@@ -202,24 +286,20 @@ video{width:100%;border-radius:12px}
 <!-- GIFTS -->
 <div class="container hidden" id="gifts">
   <h2>Something for you 💌</h2>
-
   <div class="gifts">
     <div class="gift" onclick="openQuiz()">
       <img src="https://pngimg.com/uploads/teddy_bear/teddy_bear_PNG23.png">
       <span>Gift 1</span>
     </div>
-
     <div class="gift" onclick="openLetter()">
       <img src="https://pngimg.com/uploads/teddy_bear/teddy_bear_PNG28.png">
       <span>Gift 2</span>
     </div>
-
     <div class="gift" onclick="openGallery()">
       <img src="https://pngimg.com/uploads/teddy_bear/teddy_bear_PNG18.png">
       <span>Gift 3</span>
     </div>
   </div>
-
   <button class="btn-red" onclick="openFinal()">Finally ❤️</button>
 </div>
 
@@ -239,9 +319,10 @@ video{width:100%;border-radius:12px}
   <div class="letter-box">
     <div class="letter">
       My Baby,<br><br>
-      You are my happiness and my forever.  
-      Every heartbeat belongs to you.  
-      I promise to love you always ❤️
+      Log phool dete hain Valentine pe,  
+      main tujhe apni har subah dena chahta hoon.  
+      Teri muskaan meri sabse favourite jagah hai,  
+      jahaan main har roz kho jana chahta hoon ❤️
     </div>
   </div>
   <button class="btn-red" onclick="go('letter','gifts')">Back</button>
@@ -250,9 +331,15 @@ video{width:100%;border-radius:12px}
 <!-- GALLERY -->
 <div class="container hidden" id="gallery">
   <h2>Memories 💕</h2>
-  <div class="gallery">
-    <div></div><div></div><div></div>
-    <div></div><div></div><div></div>
+  <div class="gallery-wrapper">
+    <div class="gallery">
+      <div><img src="img1.jpeg"></div>
+      <div><img src="img2.jpeg"></div>
+      <div><img src="img3.jpeg"></div>
+      <div><img src="img4.jpeg"></div>
+      <div><img src="img5.jpeg"></div>
+      <div><img src="img6.jpeg"></div>
+    </div>
   </div>
   <button class="btn-red" onclick="go('gallery','gifts')">Back</button>
 </div>
@@ -261,23 +348,43 @@ video{width:100%;border-radius:12px}
 <div class="hidden" id="final">
   <div class="overlay">
     <div class="container">
-      <h2>You are my forever 💖🥰</h2>
-      <video controls>
-        <source src="sample.mp4" type="video/mp4">
-      </video>
-      <p>I love you baby ❤️</p>
-      <button class="btn-red" onclick="closeFinal()">Back</button>
+      <div class="video-scroll">
+        <div class="video-title">You are my forever 💖🥰</div>
+
+        <div class="video-box">
+          <video controls>
+            <source src="sample.mp4" type="video/mp4">
+          </video>
+          <span style="left:15%">❤️</span>
+          <span style="left:45%">⭐</span>
+          <span style="left:70%">✨</span>
+        </div>
+
+        <div class="video-sub">
+          I may not be perfect, but loving you is the best thing I do every day. 
+          You’re my safe place, baby ❤️” “When I look at you, 
+          I see my happiness, my peace, and my future—all in one person 💖”
+           “I don’t promise a perfect life, but I promise to hold your hand through everything.
+            Always yours ❤️” “You make my worst days better and my best days unforgettable.
+             I’m so lucky to call you mine 🥰” “No matter where life takes us,
+              my heart will always find its way back to you, my love 💕” 
+              I love you baby ❤️ 💕
+        </div>
+
+        <button class="btn-red" onclick="closeFinal()">Back</button>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-/* no button movement */
+/* NO button movement */
 const no=document.getElementById("no");
 no.addEventListener("mouseenter",()=>{
   no.style.transform=`translate(${Math.random()*120-60}px,${Math.random()*120-60}px)`
 });
 
+/* navigation */
 function go(a,b){
   document.getElementById(a).classList.add("hidden");
   document.getElementById(b).classList.remove("hidden");
@@ -321,7 +428,7 @@ function openGallery(){go("gifts","gallery")}
 function openFinal(){document.getElementById("final").classList.remove("hidden")}
 function closeFinal(){document.getElementById("final").classList.add("hidden")}
 
-/* lifetime bg animation */
+/* bg hearts */
 const bgAnim=document.getElementById("bgAnim");
 const emojis=["❤️","💖","💕","💘","💝"];
 setInterval(()=>{
@@ -329,7 +436,7 @@ setInterval(()=>{
   h.className="heart";
   h.textContent=emojis[Math.floor(Math.random()*emojis.length)];
   h.style.left=Math.random()*100+"vw";
-  h.style.fontSize=16+Math.random()*24+"px";
+  h.style.fontSize=18+Math.random()*26+"px";
   h.style.animationDuration=6+Math.random()*6+"s";
   bgAnim.appendChild(h);
   setTimeout(()=>h.remove(),12000);
