@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Valentine ❤️</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+/* ===== BODY ===== */
+body{
+  min-height:100vh;
+  background:#0b0b12;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+/* ===== LIFETIME BG ANIMATION ===== */
+.bg-anim{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:-1;
+}
+
+.heart{
+  position:absolute;
+  bottom:-40px;
+  font-size:20px;
+  opacity:0.6;
+  animation: rise linear forwards;
+}
+@keyframes rise{
+  from{transform:translateY(0) scale(.8);opacity:.6}
+  to{transform:translateY(-120vh) scale(1.3);opacity:0}
+}
+
+/* ===== CENTER CONTENT ===== */
+.container{
+  background:#ffe9f1;
+  width:90%;
+  max-width:420px;
+  padding:22px;
+  border-radius:18px;
+  text-align:center;
+  box-shadow:0 25px 50px rgba(0,0,0,.55);
+  animation:pop .4s ease;
+}
+@keyframes pop{
+  from{opacity:0;transform:scale(.9)}
+  to{opacity:1;transform:scale(1)}
+}
+
+.hidden{display:none}
+h2{font-size:22px;margin-bottom:10px}
+p{font-size:16px;margin-bottom:12px}
+
+/* ===== BUTTONS ===== */
+button{
+  padding:10px 18px;
+  border-radius:25px;
+  border:none;
+  cursor:pointer;
+  font-size:15px;
+  transition:.25s;
+}
+button:hover{transform:scale(1.06)}
+button:active{transform:scale(.94)}
+.btn-red{background:#ff2e63;color:#fff}
+.btn-outline{background:#fff;border:1px solid #ccc}
+.buttons{display:flex;justify-content:center;gap:12px;margin-top:12px}
+
+/* ===== GIFT BUTTONS (WITH TEDDY IMAGES) ===== */
+.gifts{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin:14px 0;
+}
+
+.gift{
+  background:#ffd6e8;
+  border-radius:14px;
+  padding:10px;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.gift:hover{transform:translateY(-4px) scale(1.05)}
+
+.gift img{
+  width:100%;
+  height:90px;
+  object-fit:contain;
+}
+
+.gift span{
+  display:block;
+  margin-top:6px;
+  font-weight:600;
+}
+
+/* ===== QUIZ ===== */
+.option{
+  background:#f1eef6;
+  padding:10px;
+  margin:8px 0;
+  border-radius:10px;
+  cursor:pointer;
+}
+.option.selected{
+  background:#ff2e63;
+  color:#fff;
+}
+button:disabled{opacity:.5;cursor:not-allowed}
+
+/* ===== LETTER ===== */
+.letter-box{
+  background:#ffd6e8;
+  padding:14px;
+  border-radius:14px;
+}
+.letter{
+  background:#f5e6c8;
+  padding:16px 18px;
+  border-radius:10px;
+  font-family:cursive;
+  font-size:16px;
+  line-height:1.6;
+  color:#4b2e14;
+  width:fit-content;
+  margin:auto;
+}
+
+/* ===== GALLERY ===== */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+.gallery div{
+  height:70px;
+  background:#ffc8dd;
+  border-radius:10px;
+}
+
+/* ===== FINAL ===== */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:#111;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+video{width:100%;border-radius:12px}
+</style>
+</head>
+
+<body>
+
+<div class="bg-anim" id="bgAnim"></div>
+
+<!-- SCREEN 1 -->
+<div class="container" id="s1">
+  <h2>Will you be my Valentine? 💝</h2>
+  <div class="buttons">
+    <button class="btn-red" onclick="go('s1','s2')">Yes ❤️</button>
+    <button class="btn-outline" id="no">No 💔</button>
+  </div>
+</div>
+
+<!-- SCREEN 2 -->
+<div class="container hidden" id="s2">
+  <h2>Are you sure? 🥺</h2>
+  <button class="btn-red" onclick="go('s2','s3')">Yes 💖</button>
+</div>
+
+<!-- SCREEN 3 -->
+<div class="container hidden" id="s3">
+  <h2>Thank you baby 💕</h2>
+  <p>You make my life beautiful<br>I love you endlessly 💖</p>
+  <button class="btn-red" onclick="go('s3','popup')">See this ❤️</button>
+</div>
+
+<!-- POPUP -->
+<div class="container hidden" id="popup">
+  <h2>Happy Valentine’s Day Baby 💝</h2>
+  <p>Always stay mine 😘</p>
+  <button class="btn-red" onclick="go('popup','gifts')">See your gift 🎁</button>
+</div>
+
+<!-- GIFTS -->
+<div class="container hidden" id="gifts">
+  <h2>Something for you 💌</h2>
+
+  <div class="gifts">
+    <div class="gift" onclick="openQuiz()">
+      <img src="https://pngimg.com/uploads/teddy_bear/teddy_bear_PNG23.png">
+      <span>Gift 1</span>
+    </div>
+
+    <div class="gift" onclick="openLetter()">
+      <img src="https://pngimg.com/uploads/teddy_bear/teddy_bear_PNG28.png">
+      <span>Gift 2</span>
+    </div>
+
+    <div class="gift" onclick="openGallery()">
+      <img src="https://pngimg.com/uploads/teddy_bear/teddy_bear_PNG18.png">
+      <span>Gift 3</span>
+    </div>
+  </div>
+
+  <button class="btn-red" onclick="openFinal()">Finally ❤️</button>
+</div>
+
+<!-- QUIZ -->
+<div class="container hidden" id="quiz">
+  <h2 id="q"></h2>
+  <div id="opts"></div>
+  <div class="buttons">
+    <button class="btn-outline" onclick="go('quiz','gifts')">Back</button>
+    <button class="btn-red" id="nextBtn" onclick="nextQ()" disabled>Next</button>
+  </div>
+</div>
+
+<!-- LETTER -->
+<div class="container hidden" id="letter">
+  <h2>A letter for you 💌</h2>
+  <div class="letter-box">
+    <div class="letter">
+      My Baby,<br><br>
+      You are my happiness and my forever.  
+      Every heartbeat belongs to you.  
+      I promise to love you always ❤️
+    </div>
+  </div>
+  <button class="btn-red" onclick="go('letter','gifts')">Back</button>
+</div>
+
+<!-- GALLERY -->
+<div class="container hidden" id="gallery">
+  <h2>Memories 💕</h2>
+  <div class="gallery">
+    <div></div><div></div><div></div>
+    <div></div><div></div><div></div>
+  </div>
+  <button class="btn-red" onclick="go('gallery','gifts')">Back</button>
+</div>
+
+<!-- FINAL -->
+<div class="hidden" id="final">
+  <div class="overlay">
+    <div class="container">
+      <h2>You are my forever 💖🥰</h2>
+      <video controls>
+        <source src="sample.mp4" type="video/mp4">
+      </video>
+      <p>I love you baby ❤️</p>
+      <button class="btn-red" onclick="closeFinal()">Back</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* no button movement */
+const no=document.getElementById("no");
+no.addEventListener("mouseenter",()=>{
+  no.style.transform=`translate(${Math.random()*120-60}px,${Math.random()*120-60}px)`
+});
+
+function go(a,b){
+  document.getElementById(a).classList.add("hidden");
+  document.getElementById(b).classList.remove("hidden");
+}
+
+/* quiz */
+const qs=[
+ ["Do you love me?",["Yes","Always","Forever"]],
+ ["Am I special?",["Very","Most","Everything"]],
+ ["Will you stay?",["Always","Forever","Yes"]]
+];
+let i=0;
+
+function openQuiz(){i=0;go("gifts","quiz");load()}
+function load(){
+  nextBtn.disabled=true;
+  q.textContent=qs[i][0];
+  opts.innerHTML="";
+  qs[i][1].forEach(opt=>{
+    const d=document.createElement("div");
+    d.className="option";
+    d.textContent=opt;
+    d.onclick=()=>{
+      document.querySelectorAll(".option").forEach(o=>o.classList.remove("selected"));
+      d.classList.add("selected");
+      nextBtn.disabled=false;
+    };
+    opts.appendChild(d);
+  });
+}
+function nextQ(){
+  if(nextBtn.disabled) return;
+  i++;
+  if(i<qs.length) load();
+  else quiz.innerHTML="<h2>You passed the test! 💖</h2><p>You really love me 😘</p><button class='btn-red' onclick=\"go('quiz','gifts')\">Back</button>";
+}
+
+/* gifts */
+function openLetter(){go("gifts","letter")}
+function openGallery(){go("gifts","gallery")}
+function openFinal(){document.getElementById("final").classList.remove("hidden")}
+function closeFinal(){document.getElementById("final").classList.add("hidden")}
+
+/* lifetime bg animation */
+const bgAnim=document.getElementById("bgAnim");
+const emojis=["❤️","💖","💕","💘","💝"];
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=16+Math.random()*24+"px";
+  h.style.animationDuration=6+Math.random()*6+"s";
+  bgAnim.appendChild(h);
+  setTimeout(()=>h.remove(),12000);
+},400);
+</script>
+
+</body>
+</html>
